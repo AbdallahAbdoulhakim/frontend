@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Main from "./components/Main";
+import axios from "axios";
 
-function App() {
+const App = () => {
+  const [search, setSearch] = useState("");
+  const backendUrl = "http://localhost:5000/api/";
+  const [queryPost, setQueryPost] = useState([]);
+  const [queryPostsError, setQueryPostError] = useState("");
+  const [loadingPosts, setLoadingPosts] = useState(false);
+
+  const getPosts = async (search = "") => {
+    try {
+      setQueryPost([]);
+      setLoadingPosts(true);
+      const response = await axios.get(`${backendUrl}post/all`);
+      const data = response.data;
+
+      if (!data.success) {
+        setQueryPostError(data.message);
+        return;
+      }
+
+      setQueryPost(data.data);
+    } catch (error) {
+      setQueryPostError(error.message);
+    } finally {
+      setLoadingPosts(false);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="d-flex flex-column vh-100">
+      <Header search={search} setSearch={setSearch} />
+      <Main
+        getPosts={getPosts}
+        queryPost={queryPost}
+        queryPostsError={queryPostsError}
+        loadingPosts={loadingPosts}
+      />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
