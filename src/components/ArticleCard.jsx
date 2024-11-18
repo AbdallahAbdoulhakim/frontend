@@ -18,10 +18,13 @@ const ArticleCard = ({ post }) => {
         </div>
       </div>
       <div className="card-body">
-        <h5 className="card-title">Special title treatment</h5>
+        <h5 className="card-title">{post.title}</h5>
         <p className="card-text">
-          With supporting text below as a natural lead-in to additional content.
+          {post.body.length < 200 ? post.body : `${post.body.slice(0, 250)}...`}
         </p>
+        <Link to="/" className="btn btn-primary me-2">
+          View
+        </Link>
         <Link to="/" className="btn btn-secondary me-2">
           Update
         </Link>

@@ -8,19 +8,15 @@ const Home = ({ getPosts, queryPost, queryPostsError, loadingPosts }) => {
     getPosts();
   }, []);
 
-  console.log(loadingPosts);
-
   return (
     <div className="container d-flex flex-column justify-content-center">
       {queryPost?.postsList?.length && (
-        <ArticlesList postsList={queryPost.postsList} />
+        <ArticlesList queryPost={queryPost} getPosts={getPosts} />
       )}
 
       {loadingPosts && <Loading />}
 
       {queryPostsError && <ErrorAlert message={queryPostsError} />}
-
-      <Loading />
     </div>
   );
 };

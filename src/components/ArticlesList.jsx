@@ -1,12 +1,15 @@
 import React from "react";
 import ArticleCard from "./ArticleCard";
+import ArticleListPagination from "./ArticleListPagination";
 
-const ArticlesList = ({ postsList }) => {
+const ArticlesList = ({ queryPost, getPosts }) => {
   return (
     <div className="mt-2">
-      {postsList.map((post) => {
+      {queryPost.postsList.map((post) => {
         return <ArticleCard key={post.id} post={post} />;
       })}
+
+      <ArticleListPagination queryPost={queryPost} getPosts={getPosts} />
     </div>
   );
 };

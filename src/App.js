@@ -15,7 +15,7 @@ const App = () => {
     try {
       setQueryPost([]);
       setLoadingPosts(true);
-      const response = await axios.get(`${backendUrl}post/all`);
+      const response = await axios.get(`${backendUrl}post/all${search}`);
       const data = response.data;
 
       if (!data.success) {
