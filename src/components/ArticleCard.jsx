@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaRegClock } from "react-icons/fa";
 import { formatDistance } from "date-fns";
 
-const ArticleCard = ({ post }) => {
+const ArticleCard = ({ post, setPostToDelete }) => {
   return (
     <div className="card mt-2 mb-2">
       <div className="card-header d-flex d-flex justify-content-between">
@@ -22,13 +22,19 @@ const ArticleCard = ({ post }) => {
         <p className="card-text">
           {post.body.length < 200 ? post.body : `${post.body.slice(0, 250)}...`}
         </p>
-        <Link to="/" className="btn btn-primary me-2">
+        <Link to={`/post/${post.id}`} className="btn btn-primary me-2">
           View
         </Link>
         <Link to="/" className="btn btn-secondary me-2">
           Update
         </Link>
-        <Link to="/" className="btn btn-danger">
+        <Link
+          to="/"
+          className="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteModal"
+          onClick={(e) => setPostToDelete(post.id)}
+        >
           Delete
         </Link>
       </div>

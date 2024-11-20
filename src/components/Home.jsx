@@ -3,7 +3,13 @@ import ArticlesList from "./ArticlesList";
 import ErrorAlert from "./ErrorAlert";
 import Loading from "./Loading";
 
-const Home = ({ getPosts, queryPost, queryPostsError, loadingPosts }) => {
+const Home = ({
+  getPosts,
+  queryPost,
+  queryPostsError,
+  loadingPosts,
+  setPostToDelete,
+}) => {
   useEffect(() => {
     getPosts();
   }, []);
@@ -11,7 +17,11 @@ const Home = ({ getPosts, queryPost, queryPostsError, loadingPosts }) => {
   return (
     <div className="container d-flex flex-column justify-content-center">
       {queryPost?.postsList?.length && (
-        <ArticlesList queryPost={queryPost} getPosts={getPosts} />
+        <ArticlesList
+          queryPost={queryPost}
+          getPosts={getPosts}
+          setPostToDelete={setPostToDelete}
+        />
       )}
 
       {loadingPosts && <Loading />}
